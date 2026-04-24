@@ -83,7 +83,7 @@ body{background:var(--blk);color:var(--txt);font-family:'Noto Serif SC','PingFan
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle}
 
 /* INSIGHTS */
-.ins3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px}
+.ins3{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:40px}
 .ins{background:var(--card2);border:1px solid var(--bdr);border-left:2px solid var(--gold);padding:20px}
 .ins h4{color:var(--gold);font-size:.72rem;letter-spacing:.18em;margin-bottom:10px;font-weight:400}
 .ins p{color:#aaa;font-size:.72rem;line-height:1.85;letter-spacing:.04em}
@@ -111,9 +111,22 @@ body{background:var(--blk);color:var(--txt);font-family:'Noto Serif SC','PingFan
 
 /* CITY */
 .city-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin-bottom:40px}
-.city-c{background:var(--card);border:1px solid var(--bdr);padding:14px 10px;border-radius:2px;text-align:center}
+.city-c{background:var(--card);border:1px solid var(--bdr);padding:14px 10px;border-radius:2px;text-align:center;position:relative;cursor:pointer;transition:border-color .2s,background .2s}
+.city-c:hover{border-color:var(--gold);background:var(--card2)}
 .city-c .cn{font-size:1rem;color:var(--txt);font-weight:400;margin-bottom:4px}
 .city-c .dc{font-size:.6rem;color:var(--gold);letter-spacing:.08em;margin-bottom:8px}
+.city-popup{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:var(--card);border:1px solid var(--gold);border-radius:2px;z-index:200;
+  min-width:300px;padding:10px 12px;text-align:left;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+.city-popup::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+  border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid var(--gold)}
+.city-c:hover .city-popup{display:block}
+.city-popup .cp-title{font-size:.62rem;color:var(--dim);letter-spacing:.1em;margin-bottom:8px;text-transform:uppercase}
+.city-popup table{width:100%;border-collapse:collapse;font-size:.65rem}
+.city-popup td{padding:5px 6px;color:var(--txt);border-bottom:1px solid var(--bdr)}
+.city-popup td:first-child{color:var(--dim);font-size:.6rem}
+.city-popup td:last-child{color:var(--gold);text-align:right;font-weight:600}
+.city-popup .cp-none{color:var(--dim);font-size:.65rem;padding:4px 0}
 .city-c .tags{display:flex;gap:4px;justify-content:center;flex-wrap:wrap}
 .city-c .tag{font-size:.58rem;color:var(--dim);background:#111;padding:2px 5px;border-radius:1px}
 
@@ -125,6 +138,15 @@ body{background:var(--blk);color:var(--txt);font-family:'Noto Serif SC','PingFan
 .tbl tr:hover td{background:rgba(255,255,255,.02)}
 .hi{color:var(--gold);font-family:Georgia,serif}
 .tbl-meta{font-size:.65rem;color:var(--dim);margin-bottom:12px;letter-spacing:.08em}
+
+/* TIER DATE HOVER */
+.tier-amt-wrap{position:relative;display:inline-block;text-align:right;cursor:default}
+.tier-days{color:var(--dim);font-size:.65rem;margin-top:3px}
+.tier-date-tip{display:none;position:absolute;right:0;top:100%;margin-top:4px;
+  background:var(--card2);border:1px solid var(--gold);padding:6px 12px;
+  font-size:.62rem;color:var(--txt);white-space:nowrap;z-index:300;border-radius:2px;
+  box-shadow:0 4px 16px rgba(0,0,0,.5)}
+.tier-amt-wrap:hover .tier-date-tip{display:block}
 
 /* FOOTER */
 .foot{border-top:1px solid var(--bdr);text-align:center;padding:40px 20px 32px}
@@ -251,6 +273,11 @@ body.en .hero .rdate  { display:block!important; text-align:center; }
         <p class="zh">已建立覆盖 <strong>9大城市</strong>、横跨五大区域的生鲜配送体系。4月在途订单覆盖上海、北京、深圳、成都、杭州、东莞、福州、武汉、沈阳，具备全国规模化供货能力。</p>
         <p class="en" style="display:none">Distribution covers <strong>9 cities</strong> across 5 regions. In-transit orders span Shanghai, Beijing, Shenzhen, Chengdu, Hangzhou, Dongguan, Fuzhou, Wuhan, Shenyang.</p>
       </div>
+      <div class="ins">
+        <h4>◆ <span class="zh">4/22 全国极速达 &amp; 线下开架</span><span class="en" style="display:none">Apr 22 Nationwide Launch</span></h4>
+        <p class="zh">4月22日晚正式确认<strong>全国极速达</strong>上线及<strong>线下门店上架</strong>，标志着忠曜堂从线上单渠道迈向全渠道覆盖。预计将显著拓宽触达面，后续数据可重点关注5月初的渠道协同效应。</p>
+        <p class="en" style="display:none">Apr 22 evening confirmed <strong>nationwide express delivery</strong> launch and <strong>offline store listing</strong>, marking Zhongyao Tang's expansion from online-only to omnichannel. Watch May figures for channel synergy uplift.</p>
+      </div>
     </div>
 
     <div class="divider">✦</div>
@@ -258,7 +285,7 @@ body.en .hero .rdate  { display:block!important; text-align:center; }
     <!-- Store analysis placeholder + tier -->
     <div class="ch2" style="margin-bottom:16px">
       <div class="cb">
-        <div class="st" style="margin-bottom:16px"><span class="zh">营收梯队分析</span><span class="en" style="display:none">Revenue Tiers</span>
+        <div class="st" style="margin-bottom:16px"><span class="zh">该月营收表现分析</span><span class="en" style="display:none">Monthly Revenue Analysis</span>
           <span class="sub"><span class="zh">4月1—22日 · 按日营收分层</span><span class="en" style="display:none">Apr 1–22 · by daily revenue</span></span>
         </div>
         <div class="donut-wrap">
@@ -272,38 +299,38 @@ body.en .hero .rdate  { display:block!important; text-align:center; }
         </div>
       </div>
       <div class="cb">
-        <div class="st" style="margin-bottom:16px"><span class="zh">营收阶梯详情</span><span class="en" style="display:none">Tier Breakdown</span></div>
+        <div class="st" style="margin-bottom:16px"><span class="zh">营收表现详情</span><span class="en" style="display:none">Performance Breakdown</span></div>
         <div>
           <div style="border-bottom:1px solid var(--bdr);padding:12px 0">
             <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px">
               <span style="color:var(--gold);font-size:.8rem">🥇</span>
-              <div><div style="font-size:.78rem;color:var(--txt)"><span class="zh">旗舰梯队 · &gt;¥70,000/日</span><span class="en" style="display:none">Elite · &gt;¥70K/day</span></div>
+              <div><div style="font-size:.78rem;color:var(--txt)"><span class="zh">旗舰表现日 · &gt;¥70,000/日</span><span class="en" style="display:none">Elite Days · &gt;¥70K</span></div>
                 <div style="height:4px;background:#1a1a1a;border-radius:2px;margin-top:6px"><div style="width:9%;height:4px;border-radius:2px;background:#C9A84C"></div></div></div>
-              <div style="text-align:right"><div style="color:var(--gold);font-size:.82rem;font-family:Georgia,serif">¥148,812</div><div style="color:var(--dim);font-size:.65rem">4/5, 4/6 · 2天</div></div>
+              <div class="tier-amt-wrap"><div style="color:var(--gold);font-size:.82rem;font-family:Georgia,serif">¥148,812</div><div class="tier-days">2天</div><div class="tier-date-tip">4/5 · 4/6</div></div>
             </div>
           </div>
           <div style="border-bottom:1px solid var(--bdr);padding:12px 0">
             <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px">
               <span style="color:#C0C0C0;font-size:.8rem">🥈</span>
-              <div><div style="font-size:.78rem;color:var(--txt)"><span class="zh">优秀梯队 · ¥50-70K</span><span class="en" style="display:none">Strong · ¥50-70K</span></div>
+              <div><div style="font-size:.78rem;color:var(--txt)"><span class="zh">优秀表现日 · ¥50-70K</span><span class="en" style="display:none">Strong Days · ¥50-70K</span></div>
                 <div style="height:4px;background:#1a1a1a;border-radius:2px;margin-top:6px"><div style="width:36%;height:4px;border-radius:2px;background:#8B6914"></div></div></div>
-              <div style="text-align:right"><div style="color:var(--gold);font-size:.82rem;font-family:Georgia,serif">¥446,078</div><div style="color:var(--dim);font-size:.65rem">8天</div></div>
+              <div class="tier-amt-wrap"><div style="color:var(--gold);font-size:.82rem;font-family:Georgia,serif">¥446,078</div><div class="tier-days">8天</div><div class="tier-date-tip">4/2 · 4/3 · 4/4 · 4/9 · 4/11 · 4/12 · 4/13 · 4/18</div></div>
             </div>
           </div>
           <div style="border-bottom:1px solid var(--bdr);padding:12px 0">
             <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px">
               <span style="color:#CD7F32;font-size:.8rem">🥉</span>
-              <div><div style="font-size:.78rem;color:var(--txt)"><span class="zh">标准梯队 · ¥30-50K</span><span class="en" style="display:none">Standard · ¥30-50K</span></div>
+              <div><div style="font-size:.78rem;color:var(--txt)"><span class="zh">标准表现日 · ¥30-50K</span><span class="en" style="display:none">Standard Days · ¥30-50K</span></div>
                 <div style="height:4px;background:#1a1a1a;border-radius:2px;margin-top:6px"><div style="width:45%;height:4px;border-radius:2px;background:#5a3e10"></div></div></div>
-              <div style="text-align:right"><div style="color:var(--gold);font-size:.82rem;font-family:Georgia,serif">¥441,921</div><div style="color:var(--dim);font-size:.65rem">10天</div></div>
+              <div class="tier-amt-wrap"><div style="color:var(--gold);font-size:.82rem;font-family:Georgia,serif">¥441,921</div><div class="tier-days">10天</div><div class="tier-date-tip">3/28 · 3/29 · 4/1 · 4/7 · 4/8 · 4/10 · 4/15 · 4/16 · 4/19 · 4/20</div></div>
             </div>
           </div>
           <div style="padding:12px 0">
             <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px">
               <span style="color:var(--dim);font-size:.8rem">📊</span>
-              <div><div style="font-size:.78rem;color:var(--txt)"><span class="zh">关注梯队 · &lt;¥30K</span><span class="en" style="display:none">Watch · &lt;¥30K</span></div>
+              <div><div style="font-size:.78rem;color:var(--txt)"><span class="zh">需关注表现日 · &lt;¥30K</span><span class="en" style="display:none">Watch Days · &lt;¥30K</span></div>
                 <div style="height:4px;background:#1a1a1a;border-radius:2px;margin-top:6px"><div style="width:9%;height:4px;border-radius:2px;background:#3a2e1a"></div></div></div>
-              <div style="text-align:right"><div style="color:var(--gold);font-size:.82rem;font-family:Georgia,serif">¥54,089</div><div style="color:var(--dim);font-size:.65rem">2天 (3/30,3/31)</div></div>
+              <div class="tier-amt-wrap"><div style="color:var(--gold);font-size:.82rem;font-family:Georgia,serif">¥54,089</div><div class="tier-days">2天</div><div class="tier-date-tip">3/30 · 3/31</div></div>
             </div>
           </div>
         </div>
@@ -323,15 +350,84 @@ body.en .hero .rdate  { display:block!important; text-align:center; }
       <span class="sub"><span class="zh">在途订单 · PDC/FDC 生鲜配送中心 · 商品 #980431260</span><span class="en" style="display:none">In-transit orders · PDC/FDC Fresh DC · SKU #980431260</span></span>
     </div>
     <div class="city-grid" style="grid-template-columns:repeat(9,1fr)">
-      <div class="city-c"><div class="cn">上海</div><div class="dc">SHFDC2</div><div class="tags"><span class="tag">华东</span></div></div>
-      <div class="city-c"><div class="cn">杭州</div><div class="dc">HZFDC</div><div class="tags"><span class="tag">华东</span></div></div>
-      <div class="city-c"><div class="cn">东莞</div><div class="dc">DGPDC</div><div class="tags"><span class="tag">华南</span></div></div>
-      <div class="city-c"><div class="cn">深圳</div><div class="dc">SZFDC</div><div class="tags"><span class="tag">华南</span></div></div>
-      <div class="city-c"><div class="cn">北京</div><div class="dc">BJFDC</div><div class="tags"><span class="tag">华北</span></div></div>
-      <div class="city-c"><div class="cn">武汉</div><div class="dc">WHFDC</div><div class="tags"><span class="tag">华中</span></div></div>
-      <div class="city-c"><div class="cn">成都</div><div class="dc">CDFDC</div><div class="tags"><span class="tag">西南</span></div></div>
-      <div class="city-c"><div class="cn">福州</div><div class="dc">FZFDC</div><div class="tags"><span class="tag">华东</span></div></div>
-      <div class="city-c"><div class="cn">沈阳</div><div class="dc">SYFDC</div><div class="tags"><span class="tag">东北</span></div></div>
+
+      <div class="city-c"><div class="cn">上海</div><div class="dc">SHFDC2</div><div class="tags"><span class="tag">华东</span></div>
+        <div class="city-popup"><div class="cp-title">历史在途订单</div><table>
+          <tr><td>4750812751 · 4/13</td><td>180件</td></tr>
+          <tr><td>5850811032 · 4/17</td><td>1,152件</td></tr>
+          <tr><td>7026814519 · 4/24</td><td>240件</td></tr>
+        </table></div>
+      </div>
+
+      <div class="city-c"><div class="cn">杭州</div><div class="dc">HZFDC</div><div class="tags"><span class="tag">华东</span></div>
+        <div class="city-popup"><div class="cp-title">历史在途订单</div><table>
+          <tr><td>5850811035 · 4/17</td><td>480件</td></tr>
+          <tr><td>6250816184 · 4/20</td><td>135件</td></tr>
+          <tr><td>7026814532 · 4/24</td><td>192件</td></tr>
+        </table></div>
+      </div>
+
+      <div class="city-c"><div class="cn">东莞</div><div class="dc">DGPDC</div><div class="tags"><span class="tag">华南</span></div>
+        <div class="city-popup"><div class="cp-title">历史在途订单</div><table>
+          <tr><td>4750812751 · 4/14</td><td>36件</td></tr>
+          <tr><td>5850811037 · 4/18</td><td>144件</td></tr>
+          <tr><td>6250816178 · 4/21</td><td>584件</td></tr>
+          <tr><td>7026814550 · 4/25</td><td>540件</td></tr>
+        </table></div>
+      </div>
+
+      <div class="city-c"><div class="cn">深圳</div><div class="dc">SZFDC</div><div class="tags"><span class="tag">华南</span></div>
+        <div class="city-popup"><div class="cp-title">历史在途订单</div><table>
+          <tr><td>5850811031 · 4/18</td><td>144件</td></tr>
+          <tr><td>6250816097 · 4/21</td><td>144件</td></tr>
+          <tr><td>7150811342 · 4/25</td><td>30件</td></tr>
+          <tr><td>7026814529 · 4/25</td><td>96件</td></tr>
+        </table></div>
+      </div>
+
+      <div class="city-c"><div class="cn">北京</div><div class="dc">BJFDC</div><div class="tags"><span class="tag">华北</span></div>
+        <div class="city-popup"><div class="cp-title">历史在途订单</div><table>
+          <tr><td>2750818674 · 3/31</td><td>60件</td></tr>
+          <tr><td>5850811030 · 4/18</td><td>162件</td></tr>
+          <tr><td>6250816103 · 4/21</td><td>486件</td></tr>
+          <tr><td>7026814542 · 4/25</td><td>648件</td></tr>
+        </table></div>
+      </div>
+
+      <div class="city-c"><div class="cn">武汉</div><div class="dc">WHFDC</div><div class="tags"><span class="tag">华中</span></div>
+        <div class="city-popup"><div class="cp-title">历史在途订单</div><table>
+          <tr><td>5850811034 · 4/18</td><td>216件</td></tr>
+          <tr><td>6250816158 · 4/21</td><td>32件</td></tr>
+        </table></div>
+      </div>
+
+      <div class="city-c"><div class="cn">成都</div><div class="dc">CDFDC</div><div class="tags"><span class="tag">西南</span></div>
+        <div class="city-popup"><div class="cp-title">历史在途订单</div><table>
+          <tr><td>9701258041 · 3/31</td><td>98件</td></tr>
+          <tr><td>5850811036 · 4/19</td><td>180件</td></tr>
+          <tr><td>6250816144 · 4/22</td><td>57件</td></tr>
+          <tr><td>7026813967 · 4/26</td><td>8件</td></tr>
+          <tr><td>7026814544 · 4/26</td><td>52件</td></tr>
+        </table></div>
+      </div>
+
+      <div class="city-c"><div class="cn">福州</div><div class="dc">FZFDC</div><div class="tags"><span class="tag">华东</span></div>
+        <div class="city-popup"><div class="cp-title">历史在途订单</div><table>
+          <tr><td>9701258045 · 3/31</td><td>66件</td></tr>
+          <tr><td>5850811031 · 4/18</td><td>144件</td></tr>
+          <tr><td>6250816121 · 4/21</td><td>89件</td></tr>
+          <tr><td>7026814095 · 4/25</td><td>3件</td></tr>
+          <tr><td>7026814095 · 4/25</td><td>45件</td></tr>
+        </table></div>
+      </div>
+
+      <div class="city-c"><div class="cn">沈阳</div><div class="dc">SYFDC</div><div class="tags"><span class="tag">东北</span></div>
+        <div class="city-popup"><div class="cp-title">历史在途订单</div><table>
+          <tr><td>6250816129 · 4/22</td><td>54件</td></tr>
+          <tr><td>7026814515 · 4/26</td><td>486件</td></tr>
+        </table></div>
+      </div>
+
     </div>
 
     <!-- Orders table -->
@@ -356,10 +452,13 @@ body.en .hero .rdate  { display:block!important; text-align:center; }
         <tr><td>6250816144</td><td>2026.4.22</td><td>4817</td><td>CDFDC 成都</td><td class="hi">57</td></tr>
         <tr><td>7026814519</td><td>2026.4.24</td><td>4887</td><td>SHFDC2 上海</td><td class="hi">240</td></tr>
         <tr><td>7026814532</td><td>2026.4.24</td><td>4802</td><td>HZFDC 杭州</td><td class="hi">192</td></tr>
+        <tr><td>7026814095</td><td>2026.4.25</td><td>4013</td><td>FZFDC 福州</td><td class="hi">3</td></tr>
+        <tr><td>7026814095</td><td>2026.4.25</td><td>4013</td><td>FZFDC 福州</td><td class="hi">45</td></tr>
+        <tr><td>7150811342</td><td>2026.4.25</td><td>4874</td><td>SZFDC 深圳</td><td class="hi">30</td></tr>
         <tr><td>7026814542</td><td>2026.4.25</td><td>4011</td><td>BJFDC 北京</td><td class="hi">648</td></tr>
         <tr><td>7026814550</td><td>2026.4.25</td><td>4010</td><td>DGPDC 东莞</td><td class="hi">540</td></tr>
         <tr><td>7026814529</td><td>2026.4.25</td><td>4874</td><td>SZFDC 深圳</td><td class="hi">96</td></tr>
-        <tr><td>7026813967</td><td>2026.4.26</td><td>4817</td><td>CDFDC 成都</td><td class="hi">60</td></tr>
+        <tr><td>7026813967</td><td>2026.4.26</td><td>4817</td><td>CDFDC 成都</td><td class="hi">8</td></tr>
         <tr><td>7026814544</td><td>2026.4.26</td><td>4817</td><td>CDFDC 成都</td><td class="hi">52</td></tr>
         <tr><td>7026814515</td><td>2026.4.26</td><td>4810</td><td>SYFDC 沈阳</td><td class="hi">486</td></tr>
       </tbody>
@@ -369,7 +468,6 @@ body.en .hero .rdate  { display:block!important; text-align:center; }
 
   <div class="foot">
     <img src="data:image/png;base64,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" alt="忠曜堂">
-    <h3>忠曜堂</h3>
     <div class="fc"><span class="zh">忠曜堂 · GELATO &nbsp;·&nbsp; 2026年山姆销售分析 &nbsp;·&nbsp; 数据截至2026年4月22日 &nbsp;·&nbsp; 仅供内部参考</span><span class="en" style="display:none">Zhongyao Tang · GELATO &nbsp;·&nbsp; 2026 Sam's Club Sales Analytics &nbsp;·&nbsp; Data through Apr 22, 2026 &nbsp;·&nbsp; Internal use only</span></div>
   </div>
 </div><!-- /main -->
@@ -448,7 +546,7 @@ function go(){
   new Chart(document.getElementById('unitChart'),{type:'line',data:{labels:allL,datasets:[
     {data:up,borderColor:gold,backgroundColor:goldA,fill:true,tension:.4,pointBackgroundColor:gold,pointRadius:3,borderWidth:2}
   ]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' ¥'+c.parsed.y.toFixed(2)+'/件'}}},
-    scales:{x:{grid:{color:'#1a1200'},ticks:{color:'#555',maxRotation:0}},y:{grid:{color:'#1a1200'},ticks:{color:'#555',callback:v=>'¥'+v}}}
+    scales:{x:{grid:{color:'#1a1200'},ticks:{color:'#555',maxRotation:0}},y:{grid:{color:'#1a1200'},ticks:{color:'#555',callback:v=>'¥'+v.toFixed(2)}}}
   }});
 }
 </script>
