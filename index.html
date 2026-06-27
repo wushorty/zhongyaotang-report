@@ -412,7 +412,25 @@ body.en .hero .rdate  { display:block!important; text-align:center; }
     </div>
     <div class="cb tall" style="margin-bottom:40px"><canvas id="unitChart"></canvas></div>
 
-    
+    <!-- Weather x Sales -->
+    <div class="st" style="margin-top:8px"><span class="zh">天气 × 日营收分析</span><span class="en" style="display:none">Weather × Daily Revenue</span>
+      <span class="sub"><span class="zh">6城市市场加权气温/降水 vs 日营收（沪·深·穗·蓉·汉·京）· 3/27–6/21</span><span class="en" style="display:none">6-city weighted temp/precip vs daily revenue · Mar 27–Jun 21</span></span>
+    </div>
+    <div class="cb tall" style="margin-bottom:24px"><canvas id="weatherChart"></canvas></div>
+    <div class="ins3">
+      <div class="ins"><h4>◆ <span class="zh">相关性：弱且不稳定</span><span class="en" style="display:none">Weak Correlation</span></h4>
+        <p class="zh">全期日营收与加权气温 <strong>r = −0.34</strong>（表象负相关）；<strong>去趋势后仅 r ≈ −0.04</strong>（最高温 +0.03、降水 −0.09）。短期气温与降水对当日营收<strong>几乎无解释力</strong>。</p>
+        <p class="en" style="display:none">Revenue vs weighted temp r=−0.34 overall; after detrending only ≈−0.04. Daily weather has negligible explanatory power.</p>
+      </div>
+      <div class="ins"><h4>◆ <span class="zh">真正驱动：周内节奏</span><span class="en" style="display:none">Weekday Rhythm</span></h4>
+        <p class="zh"><strong>周末效应</strong>主导：周末日均 <strong>¥50,103</strong> vs 工作日 <strong>¥36,604</strong>（<strong>+37%</strong>），<strong>周六峰值 ¥54,208</strong>。雨天 <strong>¥40,616</strong> 与干天 <strong>¥40,657</strong> 几乎持平。</p>
+        <p class="en" style="display:none">Weekend avg ¥50,103 vs weekday ¥36,604 (+37%); Sat peaks ¥54,208. Rainy vs dry nearly identical.</p>
+      </div>
+      <div class="ins"><h4>◆ <span class="zh">为何呈负相关</span><span class="en" style="display:none">Why Negative</span></h4>
+        <p class="zh">4月上市高峰气温偏低（均温~20°C），6月旺季气温最高（~27°C）但销量回落——负相关源于<strong>上市/促销生命周期</strong>叠加，而非天气因果。结论：全国汇总层面 <strong>天气并非日销量有效驱动</strong>，运营应优先围绕周内节奏与促销排期。</p>
+        <p class="en" style="display:none">April launch peak (cooler) fading into hotter June reflects product lifecycle, not weather causation. Weather is not a meaningful daily driver at national level.</p>
+      </div>
+    </div>
 
     <!-- City network -->
     <div class="st" style="margin-top:8px"><span class="zh">全国配送网络</span><span class="en" style="display:none">National Distribution</span>
@@ -582,6 +600,9 @@ function go(){
   const m6L=['6/1','6/2','6/3','6/4','6/5','6/6','6/7','6/8','6/9','6/10','6/11','6/12','6/13','6/14','6/15','6/16','6/17','6/18','6/19','6/20','6/21'],m6R=[35644,28023,25536,26352,33033,46519,42189,22454,21713,22208,24359,27961,40147,39232,22146,20315,34252,30002,46284,38366,33541],m6Q=[576,453,413,426,534,752,682,363,351,359,393,452,649,634,358,328,554,485,748,620,542];
   const allL=[...mL,...aL,...m5L,...m6L],allR=[...mR,...aR,...m5R,...m6R],allQ=[...mQ,...aQ,...m5Q,...m6Q];
   const wL=['3/27-29','3/30-4/5（周）','4/6-12（周）','4/13-19（周）','4/20-26（周）','4/27-5/3（周）','5/4-10（周）','5/11-17（周）','5/18-24（周）','5/25-31（周）','6/1-7（周）','6/8-14（周）','6/15-21（周）'],wR=[67854,357644,358145,272946,417194,297259,318648,299129,257051,229405,237296,198074,224906];
+  const wtmax=[23.6,23.8,23.7,22.0,22.2,22.8,22.4,23.3,23.5,25.1,24.9,23.0,22.4,25.4,26.6,24.4,23.9,24.2,23.9,24.9,24.6,25.0,26.0,27.1,25.1,23.1,23.7,22.8,22.5,26.2,26.8,25.8,23.0,21.2,22.6,24.6,24.8,23.5,25.3,26.6,26.9,27.8,24.8,25.2,27.9,29.8,30.5,30.0,29.4,28.5,27.7,27.1,27.8,27.3,28.1,28.6,28.6,30.2,29.9,29.9,30.3,29.9,30.3,30.4,31.5,30.7,32.6,32.4,33.0,31.7,31.1,30.4,28.4,26.7,27.2,29.2,31.1,31.3,28.6,28.1,28.7,27.9,29.8,28.8,29.7,30.0,29.6];
+  wtmean=[19.3,19.1,19.2,18.4,17.8,18.0,18.5,19.4,19.3,20.4,20.7,19.4,18.8,21.3,21.8,20.8,20.6,20.6,20.3,20.8,20.8,20.6,21.3,22.1,19.9,19.1,19.9,18.8,18.8,20.6,21.7,21.6,19.1,17.9,18.1,19.9,20.6,19.9,20.4,21.5,22.7,22.9,21.4,21.0,23.1,24.6,25.5,25.8,25.4,24.2,23.9,23.7,24.0,23.8,24.4,24.7,24.7,25.9,26.2,26.5,26.9,26.6,26.5,26.1,26.4,26.5,27.7,28.2,27.9,27.8,27.1,25.7,24.1,23.0,23.4,24.3,26.1,26.7,25.2,24.9,25.5,25.1,25.8,25.7,26.3,26.7,26.3];
+  wprec=[1.6,2.1,3.4,9.3,7.9,1.3,2.2,6.6,7.8,2.1,5.3,0.5,5.0,11.4,3.8,2.2,2.1,3.5,2.8,1.1,4.0,2.0,0.3,0.9,6.1,6.1,5.9,6.6,11.3,0.1,1.1,2.0,16.5,11.7,0.0,0.5,2.1,11.6,0.8,7.5,0.2,3.5,3.9,5.9,0.5,0.1,1.1,0.7,7.8,6.9,1.1,8.3,6.7,8.9,16.3,8.3,6.8,4.8,9.7,8.6,4.0,0.6,0.9,1.8,1.0,2.6,1.8,1.1,5.2,6.8,3.7,9.0,7.9,20.7,2.6,0.6,0.1,2.9,7.6,24.6,24.2,16.5,9.0,19.9,11.5,4.1,9.5];
   const nm=Array(mL.length).fill(null),na=Array(aL.length).fill(null),n5=Array(m5L.length).fill(null),n6=Array(m6L.length).fill(null);
 
   new Chart(document.getElementById('revChart'),{type:'line',data:{labels:allL,datasets:[
@@ -624,6 +645,16 @@ function go(){
     {data:up,borderColor:gold,backgroundColor:goldA,fill:true,tension:.4,pointBackgroundColor:gold,pointRadius:3,borderWidth:2}
   ]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' ¥'+c.parsed.y.toFixed(2)+'/件'}}},
     scales:{x:{grid:{color:'#1a1200'},ticks:{color:'#555',maxRotation:0}},y:{grid:{color:'#1a1200'},ticks:{color:'#555',callback:v=>'¥'+v.toFixed(2)}}}
+  }});
+
+  new Chart(document.getElementById('weatherChart'),{type:'line',data:{labels:allL,datasets:[
+    {label:'日营收',data:allR,borderColor:red,backgroundColor:redA,fill:true,tension:.4,pointRadius:0,borderWidth:2,yAxisID:'y'},
+    {label:'加权最高温',data:wtmax,borderColor:gold,backgroundColor:'transparent',fill:false,tension:.4,pointRadius:0,borderWidth:2,yAxisID:'y1'}
+  ]},options:{responsive:true,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:true,labels:{color:'#888',font:{size:10},boxWidth:12}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.datasetIndex===0?'¥'+c.parsed.y.toLocaleString():c.parsed.y+'°C')}}},
+    scales:{x:{grid:{color:'#1a1200'},ticks:{color:'#555',maxRotation:0,autoSkip:true,maxTicksLimit:14}},
+      y:{position:'left',grid:{color:'#1a1200'},ticks:{color:'#8b1a1a',callback:v=>'¥'+(v/1000)+'k'}},
+      y1:{position:'right',grid:{display:false},ticks:{color:'#c9a84c',callback:v=>v+'°'},suggestedMin:15,suggestedMax:36}}
   }});
 }
 </script>
